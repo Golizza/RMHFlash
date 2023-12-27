@@ -1,6 +1,0 @@
-This receipt is customized to match the below requirements.
-1. For on Account tender ,two receipts are printed 
-	 i. Merchant Copy ( There should be require signature option is checked for this tender type to print this copy).
-	ii. Sales Receipt.
-
-2. For credit card tender-  Merchant copy is printed only on demand. (based on Require signature option on/off for the tender)
