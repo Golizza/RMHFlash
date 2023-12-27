@@ -1,0 +1,360 @@
+//--- Report Summary --- //
+
+Begin ReportSummary
+   ReportType = reporttypeItems
+   ReportTitle = "Inventory Valuation"
+   PageOrientation = pageorientationPortrait
+   OutLineMode = True
+   Groups = 0
+   GroupDescription = " "
+   DisplayLogo = True
+   LogoFileName = "MyLogo.bmp"
+   ProcedureCall = ""
+   TablesQueried = "FROM <BeginSqlFileName>InventoryValuationReport.sql<EndSqlFileName>"
+   SelCriteria = ""
+   GroupBy = ""
+   SortOrder = ""
+End ReportSummary
+
+
+//--- Title Rows ---//
+
+Begin TitleRow
+   Text = "<Store Name>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 16
+   Color = "Blue"
+End TitleRow
+
+Begin TitleRow
+   Text = "<Report Title>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 12
+   Color = "Black"
+End TitleRow
+
+Begin TitleRow
+   Text = "Generated On <Report Date>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 10
+   Color = "Black"
+End TitleRow
+
+
+//--- Filters ---//
+
+Begin Filter
+   FieldName = "TimeValue"
+   FilterOp = reportfilteropBetween
+   FilterLoLim = "<YearStart>"
+   FilterHilim = "<Today>"
+End Filter
+
+
+//--- Columns ---//
+
+Begin Column
+   FieldName = "Name"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Name"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1665
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Name1"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Name 1"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1665
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "ItemLookupCode"
+   DrillDownFieldName = "Item.ItemLookupCode"
+   DrillDownReportName = ""
+   Title = "Item Lookup Code"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1665
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Description"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Description"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 2790
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "SubDescription1"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Sub Description 1"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 2790
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "SubDescription2"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Sub Description 2"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 2790
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "SubDescription3"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Sub Description 3"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 2790
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "BinLocation"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Bin Location"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1740
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Opening"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Opening"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 2070
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Closing"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Closing"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 825
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "OpeningCost1"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Opening Cost 1"
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1140
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "ClosingCost1"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Closing Cost 1"
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1140
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "OpeningCost2"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Opening Cost 2"
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1140
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "ClosingCost2"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Closing Cost 1"
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1140
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "OpeningPrice1"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Opening Price 1"
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1140
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "ClosingPrice1"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Closing Price 1"
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1140
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "OpeningPrice2"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Opening Price 2"
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1140
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "ClosingPrice2"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Closing Price 2"
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1140
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Inactive"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "Inactive"
+   VBDataType = vbBoolean
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1057
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignCenterCenter
+End Column
+
+Begin Column
+   FieldName = "TimeValue"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   Title = "TimeValue"
+   VBDataType = vbDate
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1057
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignCenterCenter
+End Column
+

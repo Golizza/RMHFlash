@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<BusinessObject ModuleName="RMHC BOM Extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Prerequisites />
+	<Jobs>
+		<Job IsMandatory="true" Name="InventoryOffline" Table="InventoryOffline" Operation="Delete">
+			<LinkedJobs />
+		</Job>
+	</Jobs>
+	<JobTemplates>
+		<JobTemplate Name="InventoryOffline" Table="InventoryOffline">
+			<ForeignFields/>
+			<Fields>
+				<Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+			</Fields>
+		</JobTemplate>
+	</JobTemplates>
+</BusinessObject>

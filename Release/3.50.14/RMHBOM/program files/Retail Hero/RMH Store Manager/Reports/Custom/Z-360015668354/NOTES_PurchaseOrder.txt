@@ -1,0 +1,7 @@
+This report allows to hide purchase order header information on each page. It will only print header on first page.
+
+How to use this Report: 
+    Replace this report in <ConfiguredReportsFolder>\POPReports.
+Ensure the replaced report name is 'PurchaseOrder.rst' 
+
+

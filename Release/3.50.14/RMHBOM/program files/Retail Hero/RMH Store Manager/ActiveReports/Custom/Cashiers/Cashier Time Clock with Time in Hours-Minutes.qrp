@@ -1,0 +1,221 @@
+//--- Report Summary --- //
+
+Begin ReportSummary
+   ReportType = reporttypeMisc
+   ReportTitle = "Cashier Time Clock with Time displayed as 'hh.mm'"
+   PageOrientation = pageorientationPortrait
+   WordWrap = False
+   ShowDateTimePicker = False
+   OutLineMode = True
+   Groups = 1
+   GroupDescription = ""
+   DisplayLogo = True
+   LogoFileName = "MyLogo.bmp"
+   ProcedureCall = ""
+   PreQuery1 = ""
+   PreQuery2 = ""
+   TablesQueried = "FROM TimeClock INNER JOIN Cashier ON TimeClock.CashierID = Cashier.ID"
+   SelCriteria = ""
+   GroupBy = ""
+   SortOrder = ""
+End ReportSummary
+
+
+//--- Title Rows ---//
+
+Begin TitleRow
+   Text = "<Store Name>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 16
+   Color = "Blue"
+End TitleRow
+
+Begin TitleRow
+   Text = "<Report Title>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 12
+   Color = "Black"
+End TitleRow
+
+Begin TitleRow
+   Text = "Generated On <Report Date>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 10
+   Color = "Black"
+End TitleRow
+
+
+//--- Filters ---//
+
+Begin Filter
+   FieldName = "TimeClock.TimeIn"
+   FilterOp = reportfilteropGreaterEqual
+   FilterLoLim = "<WeekStart>"
+   FilterHilim = ""
+   FilterConnector = reportfilterbooleanconAND
+End Filter
+
+Begin Filter
+   FieldName = "TimeClock.TimeOut"
+   FilterOp = reportfilteropGreaterEqual
+   FilterLoLim = "<WeekStart>"
+   FilterHilim = ""
+End Filter
+
+
+//--- Columns ---//
+
+Begin Column
+   FieldName = "Cashier.Name"
+   DrillDownFieldName = "Cashier.Name"
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Cashier Name"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 2115
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Cashier.Number"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Cashier Number"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1995
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "TimeClock.TimeIn"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Time In (Date Only)"
+   VBDataType = vbDate
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1875
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignRightCenter
+End Column
+
+Begin Column
+   FieldName = "TimeClock.TimeIn"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Time In"
+   VBDataType = vbDateTime
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1965
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignRightCenter
+End Column
+
+Begin Column
+   FieldName = "TimeClock.TimeOut"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Time Out (Date Only)"
+   VBDataType = vbDate
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1875
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignRightCenter
+End Column
+
+Begin Column
+   FieldName = "TimeClock.TimeOut"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Time Out"
+   VBDataType = vbDateTime
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 2205
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignRightCenter
+End Column
+
+Begin Column
+   FieldName = "PunchIn"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Punch In"
+   VBDataType = vbString
+   Formula = "CONVERT(nvarchar, TimeClock.TimeIn, 20)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1875
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignRightCenter
+End Column
+
+Begin Column
+   FieldName = "PunchOut"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Punch Out"
+   VBDataType = vbString
+   Formula = "CASE WHEN (TimeClock.TimeOut >= TimeClock.TimeIn) THEN CONVERT(nvarchar, TimeClock.TimeOut, 20) ELSE 'Not Logged Out' END"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1875
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignRightCenter
+End Column
+
+Begin Column
+   FieldName = "Time"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Time"
+   VBDataType = vbDouble
+   Formula = "cast(datediff(second, timein, timeout) as float) / 3600"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = True
+   ColWidth = 1875
+   GroupMethod = groupmethodNone
+   ColFormat = "##.00"
+   ColAlignment = flexAlignRightCenter
+End Column
+

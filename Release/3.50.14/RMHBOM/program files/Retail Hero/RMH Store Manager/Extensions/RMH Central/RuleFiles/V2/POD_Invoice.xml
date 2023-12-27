@@ -1,0 +1,90 @@
+﻿<?xml version="1.0"?>
+<BusinessObject ModuleName="RMHC BOM Extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Prerequisites />
+  <Jobs>
+    <Job IsMandatory="true" Name="borInvoice" Table="POD_Invoice">
+      <LinkedJobs>
+        <Job Name="POD_InvoiceEntry_Item" Table="POD_InvoiceEntry"/>
+        <Job Name="POD_InvoiceEntry_ItemClass" Table="POD_InvoiceEntry"/>
+        <Job Name="POD_InvoiceEntry_Charge" Table="POD_InvoiceEntry"/>
+      </LinkedJobs>
+    </Job>
+  </Jobs>
+  <JobTemplates>
+    <JobTemplate Name="borInvoice" Table="POD_Invoice">
+      <ForeignFields>
+        <ForeignField Name="SupplierID" Type="UniqueIdentifier" ReferenceTable="Supplier" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="PurchaserID" Type="UniqueIdentifier" ReferenceTable="POA_Purchaser" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="PayTermID" Type="UniqueIdentifier" ReferenceTable="POA_PayTerm" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="CurrencyID" Type="UniqueIdentifier" ReferenceTable="Currency" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+
+      </ForeignFields>      
+      <Fields>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" DefaultValue="0"/>
+        <Field Name="LastUpdated" Type="DateTime" IsMandatory="true" DefaultValue="getdate()" />
+        <Field Name="DocType" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="DocOption" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="Number" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Status" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="OrderID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="OrderNo" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <!--<Field Name="SupplierTaxID" Type="Int" />-->
+        <Field Name="UserID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="DateCreated" Type="DateTime" IsMandatory="true" DefaultValue="getdate()"/>
+        <Field Name="DatePosted" Type="DateTime" IsMandatory="true" DefaultValue="getdate()"/>
+        <Field Name="Reference" Type="NVarChar" IsMandatory="true" />
+        <Field Name="ShipTo" Type="NVarChar" IsMandatory="true" />
+        <Field Name="AddrTo" Type="NVarChar" IsMandatory="true" />
+        <Field Name="ExchangeRate" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="InvDiscMode" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="InvDiscValue" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="ExternalDocNo" Type="NVarChar" IsMandatory="true" />
+        <Field Name="SupplierInvNo" Type="NVarChar" IsMandatory="true" />
+        <Field Name="SupplierInvDate" Type="DateTime" IsMandatory="true" DefaultValue="getdate()"/>
+        <Field Name="SupplierInvAmt" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="Comment" Type="NVarChar" IsMandatory="true" />
+        <Field Name="TotalAmount" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="TotalTax" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="StoreID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="POD_InvoiceEntry_Item" Table="POD_InvoiceEntry">
+      <ForeignFields>
+        <ForeignField Name="EntryID" Type="UniqueIdentifier" ReferenceTable="Item" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="ItemTaxId" Type="UniqueIdentifier" ReferenceTable="ItemTax" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="UOMID" Type="UniqueIdentifier" ReferenceTable="POA_UOM" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+
+      </ForeignFields>
+      <Fields>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" DefaultValue="0"/>
+        <Field Name="LastUpdated" Type="DateTime" IsMandatory="true" DefaultValue="getdate()"/>
+        <Field IsMandatory="true" Name="InvoiceID" Type="Int" DefaultValue="0"/>
+        <Field Name="LineType" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="LineNumber" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="EntryType" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="ItemTaxID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="OrderNumber" Type="NVarChar" IsMandatory="true"  />
+        <Field Name="Description" Type="NVarChar" IsMandatory="true"  />
+        <Field Name="UOMID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="Quantity" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="QtyReceived" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="QtyPerUOM" Type="Float" IsMandatory="true" DefaultValue="0" />
+        <Field Name="UnitCost" Type="Money" IsMandatory="true" DefaultValue="0" />
+        <Field Name="LineDiscRate" Type="Float" IsMandatory="true" DefaultValue="0" />
+        <Field Name="UnitCharge" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="UnitCostRMS" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="UnitCostInv" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="OrderType" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="OrderEntryID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="ReceiptEntryID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="InvoiceEntryID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="Comment" Type="NVarChar" IsMandatory="true"  />
+        <Field Name="BIDPrice" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="StoreID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+
+  </JobTemplates>
+</BusinessObject>

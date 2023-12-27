@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<BusinessObject ModuleName="RMHC BOM Extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Prerequisites />
+  <Jobs>
+    <Job IsMandatory="true" Name="ItemValueLog" Table="ItemValueLog">
+      <LinkedJobs />
+    </Job>
+  </Jobs>
+  <JobTemplates>
+    <JobTemplate Name="ItemValueLog" Table="ItemValueLog">
+      <ForeignFields>
+        <ForeignField Name="ItemID" Type="UniqueIdentifier" ReferenceTable="Item" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+      </ForeignFields>
+      <Fields>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" DefaultValue="0"/>
+        <Field Name="OldAmount" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="NewAmount" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field IsMandatory="true" Name="AmountType" Type="Char" DefaultValue="0"/>
+        <Field Name="LastUpdated" Type="DateTime" IsMandatory="true" DefaultValue="getdate()" />
+        <Field IsMandatory="true" Name="StoreID" Type="Int" DefaultValue="0"/>
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+  </JobTemplates>
+</BusinessObject>

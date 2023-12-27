@@ -1,0 +1,139 @@
+The supported columns in Item file to be Import are mentioned below.
+
+* [Barcode] – Enter values from the table below into the spreadsheet to import the specified barcode type.  
+
+Value assigned to Barcode Type		Barcode Type
+0						None
+1						2 of 5
+2						Interleaved 2 of 5
+3						3 of 9
+4						Codabar
+5						3 of 9 (Extended)
+6						Code 128A
+7						Code 128B
+8						Code 128C
+9						UPCA
+10						MSI
+11						Code93
+12						Extended Code93
+13						EAN13
+14						EAN8
+15						PostNet
+
+
+
+* [Bin Location] - Enter the location in the store where the item is kept.
+
+* [Buydown Price] – Enter the price to charge for each qualifying buydown item.
+
+* [Buydown Quantity] - Enter the item quantity that is available at the Buydown Price.
+
+* [Category] – Enter the department category code by which the item is associated.  If you plan to assign items to a category, you must also have a corresponding department assigned to that item.  The categories defined can be viewed within the item properties and under the Department & Categories menu option.  
+
+* [Cost] – Enter the cost for the store to purchase one of the items.
+
+* [Department] – Enter the departments code to facilitate a better report output.  The department description can be viewed within the item properties and under Merchandising | Departments in RMH Store Manager.  
+
+* [Description] – Enter a description for the item. The description is limited to 30 characters.
+
+* [Extended Description] – Enter any additional detailed information that describes the item.
+
+* [Accept Food Stamp for this Item] – Accept food stamps for this item. (1 = Accept Food Stamps and 0 = Don’t Accept Food Stamps).
+
+* [Item Lookup Code] – Enter a unique code (set of alphanumeric characters) for the item. This is generally the UPC item code (the barcode generated from the code). Max 25 characters.
+
+* [Item is not discountable at the POS] – Item isn’t discountable at the POS. (1 = Item Isn’t Discountable and 0 = Item Is Discountable)
+
+* [Item Type] - Enter values from the table below into the spreadsheet to import the specified item type.  
+
+Value assigned to Item Type		Item Type
+0						Standard Item
+1						Serialized
+2						Matrix Item (Cannot import this type)
+3						Kit
+4						Lot Matrix Item (Cannot import this type)
+5						Gasoline
+6						Weighed
+7						Non-Inventory
+8						Assembly Item (Cannot import this type)
+9						Voucher
+
+
+* [Price] – Enter the regular selling price of the item.
+* [Price level A] – Enter selling price for the available price levels A. 
+* [Price level B] – Enter selling price for the available price levels B. 
+* [Price level C] – Enter selling price for the available price levels C. 
+
+* [MSRP] – Enter MSRP for each of the available price levels. You can track the manufacturer’s suggested retail price (MSRP) for each item. 
+
+* [Price Lower bound] – These fields safeguard a cashier against selling an item below its lowest allowable price. Enter prices that represent the recommended lowest selling price of the item. 
+* [Price Upper bound] – These fields safeguard a cashier against selling an item below its highest allowable price. Enter prices that represent the recommended highest selling price of the item. 
+
+* [Reorder Point] – Enter the minimum quantity the items can fall to before you should issue a purchase order.
+
+* [Restock Level] – Enter the maximum quantity you would like to have in stock when you order the item.
+
+* [Sale End Date] – Enter the end/expiration date of the sale for this item.  After the import is complete, this sale is in effect for a specific period must be activated for those dates to take effect.   
+
+* [Sale Price] – Enter the price that will be in effect during the specified sales/promotion dates or schedule.
+
+* [Sale Start Date] – Enter the start date of the sale for this item.  After the import is complete, this sale is in effect for a specific period must be activated for those dates to take effect. 
+ 
+* [Item Tax] – Enter the Item Tax Code. The Tax code must be in the RMH Store Manager. 
+
+* [Sub description 1] – Enter additional item attribute information. Max 30 characters.
+* [Sub description 2] – Enter additional item attribute information. Max 30 characters.
+* [Sub description 3] – Enter additional item attribute information. Max 30 characters.
+
+* [Weigh] – Enter the weight of the item. 
+
+* [Fixed Tare Weight Amount] – If the item is defined as Weighed type, this field displays the known weight to subtract from the weight of the item when it is sold. Such tare weights include the weights of crates, boxes, or other packaging material that should not be counted as the actual weight of the product.
+
+* [Fixed Tare Weight Percent] – Enter a percentage of the measured weight to subtract as the tare weight.
+
+* [Unit of Measure] - Represents how the item is counted or measured. For example, if your store sold fabric, the unit of measure would be yards. Other examples include cartons, packs, lbs, etc.
+
+* [Item is available on the Website] – Item is available on the website.  (1 = Item Is Available On Website and 0 = Item Isn’t Available On Website). 
+
+* [Tag Along Item] – The Item Lookup Code assigned to the tag along item should be entered.  The tag along item must already exist in Store Operations prior to importing.
+
+* [Tag Along Item Quantity] - The number of child items contained within a parent item. For example, it would be the number of packages within a certain carton.
+
+* [Commission Basis (Mode)] – Enter the commission mode. Default is = 0. (0 = Do not allow commission for this item, 1 = Base this item’s commission on the schedule defined for sales rep, 2 = Base this item’s commission on schedule defined below)
+
+* [Commission Fixed Amount] – Enter a fixed commission amount.
+
+* [Commission Percent of Profit] – Enter the percentage of profit the item contributes to the sales reps’ commission amount. 
+
+* [Commission Percent of Sale] – Enter the percentage of the sale the item contributes to the sales reps’ commission amount. 
+
+* [Maximum Commission] – Enter the maximum commission amount the item contributes to the sales reps’ commission amount. 
+
+* [Must enter Price at the POS] – Must enter the price at the POS.  (1 = Price Must Be Entered and 0 = Price Isn’t Required To Be Entered)
+
+* [Quantity entry at POS not allowed] – Quantity entered at POS is not allowed.  (1 = Quantity Entry Isn’t Allowed and 0 = Quantity Entry Is Allowed).
+
+* [Do not Order] – Do not order this Item. Default is = 0 (1 = Order this Item and 0 = Do not order this item). 
+
+* [Whole Number] – Item is whole number. Default is = 0 (1 = Item Is whole and 0 = Item Isn’t Whole Number). 
+
+* [Parent Item] – The Item Lookup Code assigned to the parent item should be entered.  The parent item must already exist in Store Operations prior to importing.
+
+* [Parent Item Quantity] - The number of child items contained within a parent item. For example, it would be the number of packages within a certain carton.
+
+* [Picture Name] – Enter the name of the graphic file associated with the item. If the graphic file is in the proper format and located in the correct directory, it will be displayed in the adjacent box after completion of the import.  The graphic file can be found under C:\Program Files (x86)\Retail Hero\RMH Store Manager\Pictures.  
+
+* [Item Message] = Enter the message, Title. The title must be in the RMH Store Manager. 
+
+* [Supplier Code] – Enter the primary supplier's code for this item.  After completion of the import, you’ll find the suppliers listed under the item properties and Inventory/Purchasing | Suppliers within Manager. The item should also be viewable under the supplier’s Items window.
+
+* [Supplier Name] – Enter the primary supplier's name for this item.  
+ 
+* [Supplier Cost] – Enter the price the supplier charges for the item. 
+
+* [Supplier Minimum Order] – Enter the minimum order quantity.
+
+* [MPQ] – Enter the maximum packed quantity.      
+
+* [Supplier Reorder No] – Enter the supplier's product code or ordering number. This may be different than the item lookup code.
+

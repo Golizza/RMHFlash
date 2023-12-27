@@ -1,0 +1,8 @@
+Alias Import
+
+* [Alias] – Enter an alias for your items.  Aliases are easier to remember and ring up than a long manufacturer code or UPC. 
+            In a way, aliases are like nicknames. Each alias can contain up to 25 characters.
+
+* [Item Lookup Code] – Enter a unique code (set of alphanumeric characters) for the item. This is generally the UPC item code 
+                       (the barcode generated from the code). Max 25 characters.
+

@@ -1,0 +1,245 @@
+﻿<?xml version="1.0"?>
+<BusinessObject ModuleName="RMHC BOM Extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Prerequisites>
+  </Prerequisites>
+  <Jobs>
+    <Job Name="PurchaseOrder" Table="PurchaseOrder">
+      <LinkedJobs>
+        <Job Name="POD_Order" Table="POD_Order"/>
+        <Job Name="PurchaseOrderEntry" Table="PurchaseOrderEntry"/>
+        <Job Name="POD_OrderEntry" Table="POD_OrderEntry"/>
+        <Job Name="Serial" Table="Serial"/>
+        <Job Name ="POD_SerialNumber" Table ="POD_SerialNumber"/>
+        <Job Name ="ItemDynamic" Table="ItemDynamic"/>
+      </LinkedJobs>    
+    </Job>
+    <Job Name ="WorksheetStore" Table ="WorksheetStore"/>
+    <Job Name ="Worksheet" Table ="Worksheet"/>
+
+  </Jobs>
+  <JobTemplates>
+    <JobTemplate Name="PurchaseOrder" Table="PurchaseOrder">
+      <ForeignFields>
+        <ForeignField Name="SupplierID" Type="UniqueIdentifier" ReferenceTable="Supplier" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="ID" />
+        <ForeignField Name="CurrencyID" Type="UniqueIdentifier" ReferenceTable="Currency" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="ID" />
+      </ForeignFields>
+      <Fields>
+        <Field Name="LastUpdated" Type="DateTime" />
+        <Field Name="POTitle" Type="NVarChar" />
+        <Field Name="POType" Type="Int" />
+        <Field Name="StoreID" Type="Int" />
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" />
+        <Field Name="PONumber" Type="NVarChar" />
+        <Field Name="Status" Type="SmallInt" />
+        <Field Name="DateCreated" Type="DateTime" />
+        <Field Name="To" Type="NVarChar" />
+        <Field Name="ShipTo" Type="NVarChar" />
+        <Field Name="Requisitioner" Type="NVarChar" />
+        <Field Name="ShipVia" Type="NVarChar" />
+        <Field Name="FOBPoint" Type="NVarChar" />
+        <Field Name="Terms" Type="NVarChar" />
+        <Field Name="TaxRate" Type="Real" />
+        <Field Name="Shipping" Type="Money" />
+        <Field Name="Freight" Type="NVarChar" />
+        <Field Name="RequiredDate" Type="DateTime" />
+        <Field Name="ConfirmingTo" Type="NVarChar" />
+        <Field Name="Remarks" Type="NVarChar" />
+        <Field Name="OtherStoreID" Type="Int" />
+        <Field Name="ExchangeRate" Type="Float" />
+        <Field Name="OtherPOID" Type="Int" />
+        <Field Name="InventoryLocation" Type="Int" />
+        <Field Name="IsPlaced" Type="Bit" />
+        <Field Name="DatePlaced" Type="DateTime" />
+        <Field Name="BatchNumber" Type="Int" />
+        <Field Name="EstShipping" Type="Money" />
+        <Field Name="CurrentShipping" Type="Money" />
+        <Field Name="EstOtherFees" Type="Money" />
+        <Field Name="CurrentOtherFees" Type="Money" />
+        <Field Name="OtherFees" Type="Money" />
+        <Field Name="CostDistributionMethod" Type="Int" />
+        <Field Name="ParentPOId" Type="Int" />
+        <Field Name="RootPOId" Type="Int" />
+        <Field Name="OriginPOId" Type="Int" />
+        <Field Name="MasterPO" Type="NVarChar" />
+        <Field Name="DiscrepancyStatus" Type="Int" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="PurchaseOrderEntry" Table="PurchaseOrderEntry">
+      <ForeignFields>
+        <ForeignField Name="ItemID" Type="UniqueIdentifier" ReferenceTable="Item" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="ID" />
+
+      </ForeignFields>
+      <Fields>
+        <Field Name="PurchaseOrderID" Type="Int"/>
+        <Field Name="InventoryOfflineID" Type="Int"/>
+        <Field Name="ItemDescription" Type="NVarChar" />
+        <Field Name="LastUpdated" Type="DateTime" />
+        <Field Name="QuantityReceivedToDate" Type="Float" />
+        <Field Name="StoreID" Type="Int" />
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" />
+        <Field Name="QuantityOrdered" Type="Float" />
+        <Field Name="QuantityReceived" Type="Float" />
+        <Field Name="OrderNumber" Type="NVarChar" />
+        <Field Name="Price" Type="Money" />
+        <Field Name="TaxRate" Type="Float" />
+        <Field Name="ShippingPerItem" Type="Money" />
+        <Field Name="OtherFeesPerItem" Type="Money" />
+        <Field Name="LastQuantityReceived" Type="Float" />
+        <Field Name="LastReceivedDate" Type="DateTime" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="POD_Order" Table="POD_Order">
+      <ForeignFields>
+        <ForeignField Name="SupplierID" Type="UniqueIdentifier" ReferenceTable="Supplier" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="ID" />
+        <ForeignField Name="CurrencyID" Type="UniqueIdentifier" ReferenceTable="Currency" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="ID" />
+        <ForeignField Name="PurchaserID" Type="UniqueIdentifier" ReferenceTable="POA_Purchaser" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="ShipViaID" Type="UniqueIdentifier" ReferenceTable="POA_ShipVia" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="PayTermID" Type="UniqueIdentifier" ReferenceTable="POA_PayTerm" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+
+      </ForeignFields>
+      <Fields>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" />
+        <Field Name="StoreID" Type="Int" />
+        <Field Name="LinkID" Type="Int" />
+        <Field Name="RmsID" Type="Int" />
+        <Field Name="LastUpdated" Type="DateTime" />
+        <Field Name="DocType" Type="Int" />
+        <Field Name="DocSource" Type="Int" />
+        <Field Name="DocOption" Type="Int" />
+        <Field Name="Number" Type="NVarChar" />
+        <Field Name="Status" Type="Int" />
+        <Field Name="DelStatus" Type="Int" />
+        <Field Name="InvStatus" Type="Int" />
+        <Field Name="AllocationID" Type="Int" />
+        <Field Name="SupplierTaxID" Type="Int" />
+        <Field IsMandatory="true" Name="DateCreated" Type="DateTime" />
+        <Field IsMandatory="true" Name="OrderDate" Type="DateTime" />
+        <Field IsMandatory="true" Name="RequiredDate" Type="DateTime" />
+        <Field Name="DatePlaced" Type="DateTime" />
+        <Field Name="LocationType" Type="Int" />
+        <Field Name="LocationID" Type="Int" />
+        <Field Name="Reference" Type="NVarChar" />
+        <Field Name="AddrTo" Type="NVarChar" />
+        <Field Name="ShipTo" Type="NVarChar" />
+        <Field Name="Requisitioner" Type="NVarChar" />
+        <Field Name="FOBPoint" Type="NVarChar" />
+        <Field Name="Freight" Type="NVarChar" />
+        <Field Name="ExchangeRate" Type="Float" />
+        <Field Name="InvDiscMode" Type="Int" />
+        <Field Name="InvDiscValue" Type="Float" />
+        <Field Name="Comment" Type="NVarChar" />
+        <Field Name="ExternalDocNo" Type="NVarChar" />
+        <Field Name="SupplierDocNo" Type="NVarChar" />
+        <Field Name="SupplierDelNo" Type="NVarChar" />
+        <Field Name="SupplierDelDate" Type="DateTime" />
+        <Field Name="SupplierInvNo" Type="NVarChar" />
+        <Field Name="SupplierInvDate" Type="DateTime" />
+        <Field Name="SupplierInvAmt" Type="Money" />
+        <Field Name="PostingComment" Type="NVarChar" />
+        <Field Name="TotalAmount" Type="Money" />
+        <Field Name="TotalTax" Type="Money" />
+        <Field Name="PoType" Type="Int" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="POD_OrderEntry" Table="POD_OrderEntry">
+      <ForeignFields>
+        <ForeignField Name="EntryID" Type="UniqueIdentifier" ReferenceTable="Item" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="ItemTaxId" Type="UniqueIdentifier" ReferenceTable="ItemTax" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="UOMID" Type="UniqueIdentifier" ReferenceTable="POA_UOM" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+
+      </ForeignFields>
+      <Fields>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" />
+        <Field Name="StoreID" Type="Int" />
+        <Field Name="LinkID" Type="Int" />
+        <Field Name="RmsID" Type="Int" />
+        <Field Name="LastUpdated" Type="DateTime" />
+        <Field IsMandatory="true" Name="OrderID" Type="Int" />
+        <Field Name="LineType" Type="Int" />
+        <Field Name="LineNumber" Type="Int" />
+        <Field Name="EntryType" Type="Int" />
+        <Field Name="OrderNumber" Type="NVarChar" />
+        <Field Name="Description" Type="NVarChar" />
+        <Field Name="Quantity" Type="Float" />
+        <Field Name="QtyReceived" Type="Float" />
+        <Field Name="QtyToReceive" Type="Float" />
+        <Field Name="QtyInvoiced" Type="Float" />
+        <Field Name="QtyToInvoice" Type="Float" />
+        <Field Name="QtyPerUOM" Type="Float" />
+        <Field Name="UnitCost" Type="Money" />
+        <Field Name="LineDiscRate" Type="Float" />
+        <Field Name="TaxRate" Type="Float" />
+        <Field Name="LinkedEntryID" Type="Int" />
+        <Field Name="ParentEntryID" Type="Int" />
+        <Field Name="InventoryOfflineID" Type="Int" />
+        <Field Name="Comment" Type="NVarChar" />
+        <Field Name="BIDPrice" Type="Bit" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="Serial" Table="Serial">
+      <ForeignFields>
+        <ForeignField Name="ItemID" Type="UniqueIdentifier" ReferenceTable="Item" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="ID" />
+      </ForeignFields>
+      <Fields>
+        <Field Name="TransactionEntryID" Type="Int" />
+        <Field Name="HQID" Type="Int" />
+        <Field Name="LastUpdated" Type="DateTime" />
+        <Field Name="SerialNumber2" Type="NVarChar" />
+        <Field Name="SerialNumber3" Type="NVarChar" />
+        <Field Name="StoreID" Type="Int" />
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" />
+        <Field Name="SerialNumber" Type="NVarChar" />
+        <Field Name="Status" Type="Int" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="POD_SerialNumber" Table="POD_SerialNumber">
+      <ForeignFields />
+      <Fields>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" />
+        <Field IsMandatory="true" Name="DateCreated" Type="DateTime" />
+        <Field Name="Source" Type="Int" />
+        <Field IsMandatory="true" Name="EntryID" Type="Int" />
+        <Field Name="SerialID" Type="Int" />
+        <Field Name="SerialNumber1" Type="NVarChar" />
+        <Field Name="SerialNumber2" Type="NVarChar" />
+        <Field Name="SerialNumber3" Type="NVarChar" />
+        <Field Name="InventoryOfflineID" Type="Int" />
+        <Field Name="Status" Type="Int" />
+        <Field Name="StoreId" Type="Int" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="WorksheetStore" Table="WorksheetStore">
+      <Fields>
+        <Field Name="StoreID" Type="Int" IsSyncKey="true" />
+        <Field Name="WorksheetID" Type="Int" IsSyncKey="true" />
+        <Field Name="DateProcessed" Type="DateTime" />
+        <Field Name="Status" Type="Int" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="Worksheet" Table="Worksheet">
+      <Fields>
+      <Field Name="ID" Type="Int" IgnoreForUpdate="true" IsSyncKey="true" />
+      <Field Name="Status" Type="Int" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="ItemDynamic" Table="ItemDynamic">
+      <ForeignFields>
+        <ForeignField Name="ItemID" Type="UniqueIdentifier" ReferenceTable="Item" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="ID" />
+
+      </ForeignFields>
+      <Fields>
+        <Field Name="StoreID" Type="Int" IsSyncKey="true" />
+        <Field Name="Quantity" Type="Float" />
+        <Field Name="Cost" Type="Money" />
+        <Field Name="SnapshotCost" Type="Money" />
+        <Field Name="SnapshotLastCost" Type="Money" />
+      </Fields>
+    </JobTemplate>
+  </JobTemplates>
+</BusinessObject>

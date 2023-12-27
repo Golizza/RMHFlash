@@ -1,0 +1,381 @@
+//--- Report Summary --- //
+
+Begin ReportSummary
+   ReportType = reporttypeOrders
+   ReportTitle = "Inventory Transfer In List"
+   PageOrientation = pageorientationLandscape
+   OutLineMode = True
+   Groups = 0
+   GroupDescription = ""
+   DisplayLogo = True
+   LogoFileName = "MyLogo.bmp"
+   ProcedureCall = ""
+   TablesQueried = "FROM PurchaseOrder 
+					LEFT JOIN PurchaseOrderEntry ON PurchaseOrder.ID = PurchaseOrderEntry.PurchaseOrderID
+					LEFT JOIN POD_Order ON POD_Order.RmsID = PurchaseOrder.ID
+					LEFT JOIN 
+						(SELECT SUM((POD_OrderEntry.Quantity * POD_OrderEntry.UnitCost) - (POD_OrderEntry.Quantity * POD_OrderEntry.UnitCost * POD_OrderEntry.LineDiscRate/100)) AS TotalCharge, OrderID
+						FROM POD_OrderEntry WHERE POD_OrderEntry.LineType = 1 GROUP BY OrderID) AS POD_OrderEntry ON POD_OrderEntry.OrderID = POD_Order.ID
+   SelCriteria = "PurchaseOrder.POType = 2 OR PurchaseOrder.POType = 4 OR PurchaseOrder.POType = 11"
+   GroupBy = "PurchaseOrder.ID,PurchaseOrder.Status"
+   SortOrder = "PONumber"
+End ReportSummary
+
+
+//--- Title Rows ---//
+
+Begin TitleRow
+   Text = "<Store Name>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 16
+   Color = "Blue"
+End TitleRow
+
+Begin TitleRow
+   Text = "<Report Title>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 12
+   Color = "Black"
+End TitleRow
+
+Begin TitleRow
+   Text = "Generated On <Report Date>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 10
+   Color = "Black"
+End TitleRow
+
+
+//--- Filters ---//
+
+Begin Filter
+   FieldName = "Status"
+   FilterOp = reportfilteropNotEqual
+   FilterLoLim = "Closed"
+   FilterHilim = "Closed"
+End Filter
+
+
+//--- Columns ---//
+
+Begin Column
+   FieldName = "PONumber"
+   DrillDownFieldName = "PurchaseOrder.PONumber"
+   Title = "Order #"
+   VBDataType = vbString
+   Formula = "MAX(PurchaseOrder.PONumber)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1500
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "WorksheetID"
+   DrillDownFieldName = ""
+   Title = "Worksheet ID"
+   VBDataType = vbLong
+   Formula = "MAX(PurchaseOrder.WorksheetID)"
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 900
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "OtherStoreID"
+   DrillDownFieldName = ""
+   Title = "OtherStore ID"
+   VBDataType = vbLong
+   Formula = "MAX(PurchaseOrder.OtherStoreID)"
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 900
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "POTitle"
+   DrillDownFieldName = ""
+   Title = "Title"
+   VBDataType = vbString
+   Formula = "MAX(PurchaseOrder.POTitle)"
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1320
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "DateCreated"
+   DrillDownFieldName = ""
+   Title = "Order Date"
+   VBDataType = vbDate
+   Formula = "CONVERT(date, MAX(PurchaseOrder.DateCreated))"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1035
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "RequiredDate"
+   DrillDownFieldName = ""
+   Title = "Req'd Date"
+   VBDataType = vbDate
+   Formula = "MAX(PurchaseOrder.RequiredDate)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1050
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "ReceiveFrom"
+   DrillDownFieldName = ""
+   Title = "Receive From"
+   VBDataType = vbString
+   Formula = "MAX(LEFT([To], CHARINDEX(char(13), [To]+ char(13))-1))"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 2505
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "ShipVia"
+   DrillDownFieldName = ""
+   Title = "Ship Via"
+   VBDataType = vbString
+   Formula = "MAX(PurchaseOrder.ShipVia)"
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1665
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Remarks"
+   DrillDownFieldName = ""
+   Title = "Remarks"
+   VBDataType = vbString
+   Formula = "MAX(PurchaseOrder.Remarks)"
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1665
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Status"
+   DrillDownFieldName = ""
+   Title = "Status"
+   VBDataType = vbString
+   Formula = "MAX(CASE PurchaseOrder.Status WHEN 0 THEN 'Open' WHEN 1 THEN 'Partial' WHEN 2 THEN 'Closed' WHEN 3 THEN 'Closed' WHEN 5 THEN 'Closed' ELSE 'Unknown' END)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 690
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PlacementStatus"
+   DrillDownFieldName = ""
+   Title = "Placement Status"
+   VBDataType = vbString
+   Formula = "MAX(CASE PurchaseOrder.IsPlaced WHEN 0 THEN 'Not placed' WHEN 1 THEN 'Placed' ELSE 'Unknown' END)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 690
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "DatePlaced"
+   DrillDownFieldName = ""
+   Title = "Date Placed"
+   VBDataType = vbDate
+   Formula = "MAX(PurchaseOrder.DatePlaced)"
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1050
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "QuantityOrdered"
+   DrillDownFieldName = ""
+   Title = "Qty. Ord."
+   VBDataType = vbDouble
+   Formula = "SUM(PurchaseOrderEntry.QuantityOrdered)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 900
+   GroupMethod = groupmethodSum
+   ColFormat = "#.##"
+End Column
+
+Begin Column
+   FieldName = "QuantityReceivedToDate"
+   DrillDownFieldName = ""
+   Title = "Qty. RTD"
+   VBDataType = vbDouble
+   Formula = "SUM(PurchaseOrderEntry.QuantityReceivedToDate)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 960
+   GroupMethod = groupmethodSum
+   ColFormat = "#.##"
+End Column
+
+Begin Column
+   FieldName = "QuantityBackOrdered"
+   DrillDownFieldName = ""
+   Title = "Qty. Back."   
+   VBDataType = vbDouble
+   Formula = "SUM(PurchaseOrderEntry.QuantityOrdered) - SUM(PurchaseOrderEntry.QuantityReceivedToDate)"
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 960
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "SubTotal"
+   DrillDownFieldName = ""
+   Title = "Sub-Total"
+   VBDataType = vbCurrency
+   Formula = "SUM(PurchaseOrderEntry.Price * PurchaseOrderEntry.QuantityOrdered)/MAX(PurchaseOrder.ExchangeRate)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1335
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+//---New Cloumns---//
+Begin Column
+   FieldName = "EstShipping"
+   DrillDownFieldName = ""
+   Title = "Est. Shipping"
+   VBDataType = vbCurrency
+   Formula = "MAX(PurchaseOrder.EstShipping)/MAX(PurchaseOrder.ExchangeRate)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1290
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Shipping"
+   DrillDownFieldName = ""
+   Title = "Shipping To Date"
+   VBDataType = vbCurrency
+   Formula = "ISNULL(MAX(POD_OrderEntry.TotalCharge), 0)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1290
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "EstOtherFees"
+   DrillDownFieldName = ""
+   Title = "Est. Other Fees"
+   VBDataType = vbCurrency
+   Formula = "MAX(PurchaseOrder.EstOtherFees)/MAX(PurchaseOrder.ExchangeRate)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1290
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "OtherFees"
+   DrillDownFieldName = ""
+   Title = "Other Fees To Date"
+   VBDataType = vbCurrency
+   Formula = "MAX(PurchaseOrder.OtherFees)/MAX(PurchaseOrder.ExchangeRate)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1290
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+
+//---New Columns End---//
+
+Begin Column
+   FieldName = "Tax"
+   DrillDownFieldName = ""
+   Title = "Tax"
+   VBDataType = vbCurrency
+   Formula = "MAX(POD_Order.TotalTax)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1065
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Total"
+   DrillDownFieldName = ""
+   Title = "Total"
+   VBDataType = vbCurrency
+   Formula = "ISNULL(SUM(PurchaseOrderEntry.Price * PurchaseOrderEntry.QuantityOrdered)/MAX(PurchaseOrder.ExchangeRate), 0) + ISNULL(MAX(POD_OrderEntry.TotalCharge), 0) + MAX(POD_Order.TotalTax)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1170
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+

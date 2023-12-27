@@ -1,0 +1,415 @@
+//--- Report Summary --- //
+
+Begin ReportSummary
+   ReportType = reporttypeOrders
+   ReportTitle = "Purchase Order List"
+   PageOrientation = pageorientationLandscape
+   WordWrap = False
+   ShowDateTimePicker = False
+   OutLineMode = True
+   Groups = 1
+   GroupDescription = ""
+   DisplayLogo = True
+   LogoFileName = "MyLogo.bmp"
+   ProcedureCall = ""
+   PreQuery1 = ""
+   PreQuery2 = ""
+   TablesQueried = <BEGIN>
+
+FROM PurchaseOrder LEFT JOIN PurchaseOrderEntry ON PurchaseOrder.ID = PurchaseOrderEntry.PurchaseOrderID
+LEFT JOIN Supplier WITH (NOLOCK) ON Supplier.ID = PurchaseOrder.SupplierID
+LEFT JOIN Item WITH (NOLOCK) on PurchaseOrderEntry.ItemID = Item.ID
+LEFT JOIN POD_Order ON POD_Order.RmsID = PurchaseOrder.ID
+
+<END>
+   SelCriteria = "PurchaseOrder.POType = 0 OR PurchaseOrder.POType = 1"
+   GroupBy = ""
+   SortOrder = "PurchaseOrder.PONumber"
+End ReportSummary
+
+
+//--- Title Rows ---//
+
+Begin TitleRow
+   Text = "<Store Name>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 16
+   Color = "Blue"
+End TitleRow
+
+Begin TitleRow
+   Text = "<Report Title>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 12
+   Color = "Black"
+End TitleRow
+
+Begin TitleRow
+   Text = "Generated On <Report Date>"
+   Font = "Arial"
+   FontBold = True
+   FontSize = 10
+   Color = "Black"
+End TitleRow
+
+
+//--- Filters ---//
+
+Begin Filter
+   FieldName = "Status"
+   FilterOp = reportfilteropNotEqual
+   FilterLoLim = "Closed"
+   FilterHilim = "Closed"
+   FilterConnector = reportfilterbooleanconAND
+End Filter
+
+
+//--- Columns ---//
+
+Begin Column
+   FieldName = "PurchaseOrder.PONumber"
+   DrillDownFieldName = "PurchaseOrder.PONumber"
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "PO #"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1500
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrder.POTitle"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Title"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1320
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrder.WorksheetID"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Title"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1320
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrder.DateCreated"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "PO Date"
+   VBDataType = vbDate
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1035
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrder.RequiredDate"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Req'd Date"
+   VBDataType = vbDate
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1050
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Supplier.SupplierName"
+   DrillDownFieldName = "Supplier.ID"
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Supplier"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1320
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrder.ShipVia"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Ship Via"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1665
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrder.Remarks"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Remarks"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1665
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Status"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Status"
+   VBDataType = vbString
+   Formula = "(CASE PurchaseOrder.Status WHEN 0 THEN 'Open' WHEN 1 THEN 'Partial' WHEN 2 THEN 'Closed' WHEN 5 THEN 'Closed' ELSE 'Unknown' END)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 690
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "Item.ItemLookupCode"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Item Lookup Code"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1710
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrderEntry.ItemDescription"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Item Description"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 2115
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrderEntry.OrderNumber"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Order Number"
+   VBDataType = vbString
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1365
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrderEntry.Price"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Cost Each"
+   VBDataType = vbCurrency
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 990
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+   ColAlignment = flexAlignLeftCenter
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrderEntry.QuantityOrdered"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Qty. Ord."
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 900
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "PurchaseOrderEntry.QuantityReceivedToDate"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Qty Rcv."
+   VBDataType = vbDouble
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 960
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "QuantityBackOrdered"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Qty Back."
+   VBDataType = vbDouble
+   Formula = "(PurchaseOrderEntry.QuantityOrdered) - (PurchaseOrderEntry.QuantityReceivedToDate)"
+   ColHidden = True
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 960
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Item.LastReceived"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Last Received"
+   VBDataType = vbDate
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1335
+   GroupMethod = groupmethodNone
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "SubTotal"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Sub-Total"
+   VBDataType = vbCurrency
+   Formula = "(PurchaseOrderEntry.Price * PurchaseOrderEntry.QuantityOrdered)/(PurchaseOrder.ExchangeRate)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1335
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Shipping"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Shipping"
+   VBDataType = vbCurrency
+   Formula = "(PurchaseOrder.Shipping)/(PurchaseOrder.ExchangeRate)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1290
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "POD_Order.TotalTax"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Tax"
+   VBDataType = vbCurrency
+   Formula = ""
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1065
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+
+Begin Column
+   FieldName = "Total"
+   DrillDownFieldName = ""
+   DrillDownReportName = ""
+   StoreIDFieldName = ""
+   Title = "Total"
+   VBDataType = vbCurrency
+   Formula = "ISNULL((PurchaseOrderEntry.Price * PurchaseOrderEntry.QuantityOrdered)/(PurchaseOrder.ExchangeRate), 0) + ISNULL((PurchaseOrder.Shipping)/(PurchaseOrder.ExchangeRate), 0) + ISNULL(POD_Order.TotalTax, 0)"
+   ColHidden = False
+   ColNotDisplayable = False
+   FilterDisabled = False
+   ColWidth = 1170
+   GroupMethod = groupmethodSum
+   ColFormat = ""
+End Column
+

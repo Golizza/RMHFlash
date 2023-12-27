@@ -1,0 +1,29 @@
+﻿<?xml version="1.0"?>
+<BusinessObject ModuleName="RMHC BOM Extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Prerequisites />
+  <Jobs>
+    <Job IsMandatory="true" Name="borSalesRepresentative" Table="SalesRep">
+      <LinkedJobs />
+    </Job>
+  </Jobs>
+  <JobTemplates>
+    <JobTemplate Name="borSalesRepresentative" Table="SalesRep">
+      <ForeignFields />
+      <Fields>
+        <!--<Field Name="HQID" Type="Int" />-->
+        <Field Name="LastUpdated" Type="DateTime" IsMandatory="true" DefaultValue="getdate()" />
+        <Field Name="Number" Type="NVarChar" IsMandatory="true" />
+        <Field Name="StoreID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" DefaultValue="0"/>
+        <Field Name="Name" Type="NVarChar" IsMandatory="true" />
+        <Field Name="PercentOfSale" Type="Real" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="PercentOfProfit" Type="Real" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="FixedRate" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="EmailAddress" Type="NVarChar" IsMandatory="true" />
+        <!--<Field Name="DBTimeStamp" Type="Timestamp" IgnoreForInsert="true" IgnoreForUpdate="true" />-->
+        <Field Name="Telephone" Type="NVarChar" IsMandatory="true" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+  </JobTemplates>
+</BusinessObject>

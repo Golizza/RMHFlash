@@ -1,0 +1,132 @@
+﻿<?xml version="1.0"?>
+<BusinessObject ModuleName="RMHC BOM Extension" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Prerequisites>
+    <!--<Prerequisite Table="AccountType" Column="SyncGuid" IncludeInJob="false"/>-->
+    <!--<Prerequisite Table="ShipTo" Column="SyncGuid"/>-->
+    <Prerequisite Table="Cashier" Column="SyncGuid" IncludeInJob="true" />
+    <Prerequisite Table="SalesRep" Column="SyncGuid" IncludeInJob="true" />
+  </Prerequisites>
+  <Jobs>
+    <Job IsMandatory="true" Name="borCustomer" Table="Customer">
+
+        <LinkedJobs>
+        <Job Name="borShippingAddress" Table="ShipTo" AutoRecreateCollection="true" />
+        <Job Name="borCustomerAlias" Table="CustomerAlias" AutoRecreateCollection="true"/>
+        <Job  Name="CustomerExt" Table="CustomerExt"/>
+        </LinkedJobs>
+    </Job>
+
+  </Jobs>
+  <JobTemplates>
+    <JobTemplate Name="borCustomer" Table="Customer">
+      <ForeignFields>
+        <ForeignField Name="PrimaryShipToID" Type="UniqueIdentifier" ReferenceTable="ShipTo" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="AutoID"/>
+        <ForeignField Name="CashierID" Type="UniqueIdentifier" ReferenceTable="Cashier" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+        <ForeignField Name="SalesRepID" Type="UniqueIdentifier" ReferenceTable="SalesRep" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+	    <ForeignField Name="DefaultShippingServiceID" Type="UniqueIdentifier" ReferenceTable="ShippingService" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="ID"/>
+      </ForeignFields>
+      <Fields>
+        <Field Name="AccountNumber" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Address2" Type="NVarChar" IsMandatory="true" />
+        <Field Name="AssessFinanceCharges" Type="Bit" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="Company" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Country" Type="NVarChar" IsMandatory="true" />
+        <Field Name="CustomDate1" Type="DateTime" />
+        <Field Name="CustomDate2" Type="DateTime" />
+        <Field Name="CustomDate3" Type="DateTime" />
+        <Field Name="CustomDate4" Type="DateTime" />
+        <Field Name="CustomDate5" Type="DateTime" />
+        <Field Name="CustomNumber1" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="CustomNumber2" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="CustomNumber3" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="CustomNumber4" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="CustomNumber5" Type="Float" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="CustomText1" Type="NVarChar" IsMandatory="true" />
+        <Field Name="CustomText2" Type="NVarChar" IsMandatory="true" />
+        <Field Name="CustomText3" Type="NVarChar" IsMandatory="true" />
+        <Field Name="CustomText4" Type="NVarChar" IsMandatory="true" />
+        <Field Name="CustomText5" Type="NVarChar" IsMandatory="true" />
+        <Field Name="GlobalCustomer" Type="Bit" IsMandatory="true" DefaultValue="0"/>
+        <!--<Field Name="HQID" Type="Int" />-->
+        <Field Name="LastStartingDate" Type="DateTime" />
+        <Field Name="LastClosingDate" Type="DateTime" />
+        <Field Name="LastUpdated" Type="DateTime" IsMandatory="true" DefaultValue="getdate()"/>
+        <Field Name="LimitPurchase" Type="Bit" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="LastClosingBalance" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="State" Type="NVarChar" IsMandatory="true" />
+        <Field Name="StoreID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" DefaultValue="0"/>
+        <Field Name="LayawayCustomer" Type="Bit" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="Employee" Type="Bit" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="FirstName" Type="NVarChar" IsMandatory="true" />
+        <Field Name="LastName" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Address" Type="NVarChar" IsMandatory="true" />
+        <Field Name="City" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Zip" Type="NVarChar" IsMandatory="true" />
+        <Field Name="AccountBalance" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="CreditLimit" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="TotalSales" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="AccountOpened" Type="DateTime" IsMandatory="true" DefaultValue="getdate()"/>
+        <Field Name="LastVisit" Type="DateTime" IsMandatory="true" DefaultValue="getdate()"/>
+        <Field Name="TotalVisits" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="TotalSavings" Type="Money" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="CurrentDiscount" Type="Real" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="PriceLevel" Type="SmallInt" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="TaxExempt" Type="Bit" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="Notes" Type="NText" />
+        <Field Name="Title" Type="NVarChar" IsMandatory="true" />
+        <Field Name="EmailAddress" Type="NVarChar" IsMandatory="true" />
+        <!--<Field Name="DBTimeStamp" Type="Timestamp" IgnoreForInsert="true" IgnoreForUpdate="true" />-->
+        <Field Name="TaxNumber" Type="NVarChar" IsMandatory="true" />
+        <Field Name="PictureName" Type="NVarChar" IsMandatory="true" />
+        <Field Name="PhoneNumber" Type="NVarChar" IsMandatory="true" />
+        <Field Name="FaxNumber" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Vouchers" Type="Money" IsMandatory="true" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="borShippingAddress" Table="ShipTo">
+      <ForeignFields>
+        <ForeignField Name="CustomerID" Type="UniqueIdentifier" ReferenceTable="Customer" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="AutoID" />
+      </ForeignFields>
+      <Fields>
+        <Field Name="Address" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Address2" Type="NVarChar" IsMandatory="true" />
+        <Field Name="City" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Company" Type="NVarChar" IsMandatory="true" />
+        <Field Name="Country" Type="NVarChar" IsMandatory="true" />
+        <!--<Field Name="HQID" Type="Int" />-->
+        <Field Name="LastUpdated" Type="DateTime" IsMandatory="true" DefaultValue="getdate()"/>
+        <Field Name="Name" Type="NVarChar" IsMandatory="true" />
+        <Field Name="State" Type="NVarChar" IsMandatory="true" />
+        <Field Name="StoreID" Type="Int" IsMandatory="true" DefaultValue="0"/>
+        <Field Name="Zip" Type="NVarChar" IsMandatory="true" />
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" DefaultValue="0" />
+        <!--<Field Name="DBTimeStamp" Type="Timestamp" IgnoreForInsert="true" IgnoreForUpdate="true" />-->
+        <Field Name="EmailAddress" Type="NVarChar" IsMandatory="true" />
+        <Field Name="PhoneNumber" Type="NVarChar" IsMandatory="true"  />
+        <Field Name="FaxNumber" Type="NVarChar" IsMandatory="true" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="borCustomerAlias" Table="CustomerAlias">
+      <ForeignFields>
+        <ForeignField Name="AccountNumber" Type="NVarChar" ReferenceTable="Customer" ReferenceColumn="AccountNumber" ReferenceReturn="AccountNumber" ForeignType="NVarChar" />
+      </ForeignFields>
+      <Fields>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" IsPrimaryKey="true" IgnoreForInsert="true"/>
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+        <Field IsMandatory="true" Name="AccountAlias" Type="NVarChar" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="CustomerExt" Table="CustomerExt">
+      <ForeignFields>
+        <ForeignField Name="CustomerID" Type="UniqueIdentifier" ReferenceTable="Customer" ReferenceColumn="SyncGuid" ReferenceReturn="ID" ReferenceDestination="AutoID" />
+      </ForeignFields>
+      <Fields>
+       <Field Name="XmlData" Type="NVarChar" />
+      </Fields>
+    </JobTemplate>
+
+  </JobTemplates>
+</BusinessObject>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0"?>
+<BusinessObject ModuleName="RMHC BOM Extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+  <Prerequisites>
+    <Prerequisite Table="TenderTotals" Column="SyncGuid" />
+    <Prerequisite Table="TaxTotals" Column="SyncGuid" />
+  </Prerequisites>
+  <Jobs>
+    <Job IsMandatory="true" Name="Batch" Table="Batch">
+      <LinkedJobs>
+        <Job Name="borTenderTotal" Table="TenderTotals" />
+        <Job Name="TaxTotals" Table="TaxTotals" />
+      </LinkedJobs>
+    </Job>
+  </Jobs>
+  <JobTemplates>
+    <JobTemplate Name="Batch" Table="Batch">
+      <ForeignFields>
+        <ForeignField Name="RegisterID" Type="UniqueIdentifier" ReferenceTable="Register" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+      </ForeignFields>
+      <Fields>
+        <Field Name="CustomerDepositMade" Type="Money" IsMandatory="true"/>
+        <Field Name="CustomerDepositRedeemed" Type="Money" IsMandatory="true"/>
+        <Field Name="LastUpdated" Type="DateTime" IsMandatory="true"/>
+        <Field Name="StoreID" Type="Int" />
+        <Field IsMandatory="true" Name="BatchNumber" Type="Int" IgnoreForUpdate="true"/>
+        <Field Name="Status" Type="SmallInt" IsMandatory="true"/>
+        <Field Name="OpeningTime" Type="DateTime" />
+        <Field Name="ClosingTime" Type="DateTime" />
+        <Field Name="OpeningTotal" Type="Money" IsMandatory="true"/>
+        <Field Name="ClosingTotal" Type="Money" IsMandatory="true"/>
+        <Field Name="Sales" Type="Money" IsMandatory="true"/>
+        <Field Name="Returns" Type="Money" IsMandatory="true"/>
+        <Field Name="Tax" Type="Money" IsMandatory="true"/>
+        <Field Name="SalesPlusTax" Type="Money" IsMandatory="true"/>
+        <Field Name="Commission" Type="Money" IsMandatory="true"/>
+        <Field Name="PaidOut" Type="Money" IsMandatory="true"/>
+        <Field Name="Dropped" Type="Money" IsMandatory="true"/>
+        <Field Name="PaidOnAccount" Type="Money" IsMandatory="true"/>
+        <Field Name="PaidToAccount" Type="Money" IsMandatory="true"/>
+        <Field Name="CustomerCount" Type="Int" IsMandatory="true"/>
+        <Field Name="NoSalesCount" Type="Int" IsMandatory="true"/>
+        <Field Name="AbortedTransCount" Type="Int" IsMandatory="true"/>
+        <Field Name="TotalTendered" Type="Money" IsMandatory="true"/>
+        <Field Name="TotalChange" Type="Money" IsMandatory="true"/>
+        <Field Name="Discounts" Type="Money" IsMandatory="true"/>
+        <Field Name="CostOfGoods" Type="Money" IsMandatory="true"/>
+        <Field Name="LayawayPaid" Type="Money" IsMandatory="true"/>
+        <Field Name="LayawayClosed" Type="Money" IsMandatory="true"/>
+        <Field Name="Shipping" Type="Money" IsMandatory="true"/>
+        <Field Name="TenderRoundingError" Type="Money" IsMandatory="true"/>
+        <Field Name="DebitSurcharge" Type="Money" IsMandatory="true"/>
+        <Field Name="CashBackSurcharge" Type="Money" IsMandatory="true"/>
+        <Field Name="Vouchers" Type="Money" IsMandatory="true"/>
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="borTenderTotal" Table="TenderTotals">
+      <ForeignFields>
+        <ForeignField Name="BatchNumber" Type="Int" ReferenceTable="Batch" ReferenceColumn="BatchNumber" ReferenceReturn="BatchNumber" />
+        <ForeignField Name="TenderID" Type="UniqueIdentifier" ReferenceTable="Tender" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+      </ForeignFields>
+      <Fields>
+        <Field Name="StoreID" Type="Int" />
+        <Field Name="Open" Type="Money" />
+        <Field Name="Shift" Type="Money" />
+        <Field Name="Close" Type="Money" />
+        <Field Name="Count" Type="Int" />
+        <Field Name="OpenForeign" Type="Money" />
+        <Field Name="CloseForeign" Type="Money" />
+        <Field Name="ShiftForeign" Type="Money" />
+        <Field Name="ShiftRoundingError" Type="Money" />
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+    <JobTemplate Name="TaxTotals" Table="TaxTotals">
+      <ForeignFields>
+        <ForeignField Name="BatchNumber" Type="Int" ReferenceTable="Batch" ReferenceColumn="BatchNumber" ReferenceReturn="BatchNumber" />
+        <ForeignField Name="TaxID" Type="UniqueIdentifier" ReferenceTable="Tax" ReferenceColumn="SyncGuid" ReferenceReturn="ID" />
+      </ForeignFields>
+      <Fields>
+        <Field IsMandatory="true" Name="ID" Type="Int" IgnoreForUpdate="true"/>
+        <Field Name="Date" Type="DateTime" />
+        <Field Name="StoreID" Type="Int" />
+        <Field Name="Total" Type="Money" />
+        <Field Name="SyncGuid" Type="UniqueIdentifier" IgnoreForUpdate="true" IsSyncKey="true" />
+      </Fields>
+    </JobTemplate>
+  </JobTemplates>
+</BusinessObject>
